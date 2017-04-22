@@ -1,0 +1,26 @@
+.top {
+  position:absolute;
+  left:0; right:0;
+  height: 10%;
+  background-color:rgb(60, 59, 55);
+  color:white;
+
+}
+
+.header-content{
+  position: absolute;
+  display: inline-flex;
+  right: 20px;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.dropdown-style{
+  width:200px;
+  color:gray;
+  height:30px;
+  margin-right:10px;
+  margin-left:10px;
+}
+
+
