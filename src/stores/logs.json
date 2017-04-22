@@ -1,0 +1,344 @@
+[
+  {
+    "type": "UP",
+    "typeStatus": 1,
+    "comment": "Great Guy",
+    "Location": "NYC.png",
+    "Score": "560",
+    "Customer": {
+      "name": "Abc",
+      "city": "NYC",
+      "email": "joshua@gmail.com",
+      "number": "888-567-8898",
+      "ID": "T3672",
+      "time": "10:42 am",
+      "Source": "TV",
+      "Photo": "photo.jpg"
+    },
+    "Vehicle": {
+      "name": "2011_HD_Street_Glide_CVO",
+      "type": "N",
+      "Stock": "7232B"
+    },
+    "variableSeller": {
+      "Seller1": "Stein",
+      "Seller2": "Bob"
+    },
+    "Dealer": {
+      "dealer3": "Bill",
+      "dealer4": "Steven"
+    },
+    "FinanceManager": "Abc",
+    "DeskMgr": "Steiner",
+    "roadToSale": {
+      "greet": true,
+      "probe": true,
+      "sitOn": true,
+      "EMI": false,
+      "fds": null
+    },
+    "LMC": "",
+    "LME": "",
+    "LMCB": "",
+    "LMEB": "",
+    "GROSS": [
+      "56000",
+      "70000",
+      "45000"
+    ],
+    "Results": "Sold"
+  },
+  {
+    "type": "BB",
+    "typeStatus": 2,
+    "comment": "Great Guy",
+    "Location": "NYC.png",
+    "Score": "400",
+    "Customer": {
+      "name": "Joshua",
+      "city": "Washington",
+      "email": "joshua@gmail.com",
+      "number": "888-567-8898",
+      "ID": "P4568",
+      "time": "5:30 pm",
+      "Source": "Website-Bulid Your bike",
+      "Photo": "photo.jpg"
+    },
+    "Vehicle": {
+      "name": "Harley_Fat_Boy",
+      "type": "U",
+      "Stock": "7232B"
+    },
+    "variableSeller": {
+      "Seller1": "Stein",
+      "Seller2": "Bob"
+    },
+    "Dealer": {
+      "dealer3": "Bill",
+      "dealer4": "Steven"
+    },
+    "FinanceManager": "Abc",
+    "DeskMgr": "Steiner",
+    "roadToSale": {
+      "greet": true,
+      "probe": true,
+      "sitOn": true,
+      "EMI": false,
+      "fds": null
+    },
+    "LMC": "",
+    "LME": "",
+    "LMCB": "",
+    "LMEB": "",
+    "GROSS": [
+      "56000",
+      "70000"
+    ],
+    "Results": "Just Looking"
+  },
+  {
+    "type": "IL",
+    "typeStatus": 1,
+    "comment": "Great Guy",
+    "Location": "NYC.png",
+    "Score": "560",
+    "Customer": {
+      "name": "Joshua",
+      "city": "NYC",
+      "email": "joshua@gmail.com",
+      "number": "888-567-8898",
+      "ID": "T3672",
+      "time": "10:42 am",
+      "Source": "TV",
+      "Photo": "photo.jpg"
+    },
+    "Vehicle": {
+      "name": "2011_HD_Street_Glide_CVO",
+      "type": "N",
+      "Stock": "7232B"
+    },
+    "variableSeller": {
+      "Seller1": "Stein",
+      "Seller2": "Bob"
+    },
+    "Dealer": {
+      "dealer3": "Bill",
+      "dealer4": "Steven"
+    },
+    "FinanceManager": "Abc",
+    "DeskMgr": "Steiner",
+    "roadToSale": {
+      "greet": true,
+      "probe": true,
+      "sitOn": true,
+      "EMI": false,
+      "fds": null
+    },
+    "LMC": "",
+    "LME": "",
+    "LMCB": "",
+    "LMEB": "",
+    "GROSS": [
+      "56000",
+      "70000",
+      "45000"
+    ],
+    "Results": "Sold"
+  },
+  {
+    "type": "P",
+    "typeStatus": 3,
+    "comment": "Great Guy",
+    "Location": "NYC.png",
+    "Score": "560",
+    "Customer": {
+      "name": "Joshua",
+      "city": "NYC",
+      "email": "joshua@gmail.com",
+      "number": "888-567-8898",
+      "ID": "T3672",
+      "time": "10:42 am",
+      "Source": "TV",
+      "Photo": "photo.jpg"
+    },
+    "Vehicle": {
+      "name": "2011_HD_Street_Glide_CVO",
+      "type": "N",
+      "Stock": "7232B"
+    },
+    "variableSeller": {
+      "Seller1": "Stein",
+      "Seller2": "Bob"
+    },
+    "Dealer": {
+      "dealer3": "Bill",
+      "dealer4": "Steven"
+    },
+    "FinanceManager": "Abc",
+    "DeskMgr": "Steiner",
+    "roadToSale": {
+      "greet": true,
+      "probe": true,
+      "sitOn": true,
+      "EMI": false,
+      "fds": null
+    },
+    "LMC": "",
+    "LME": "",
+    "LMCB": "",
+    "LMEB": "",
+    "GROSS": [
+      "56000",
+      "70000",
+      "45000"
+    ],
+    "Results": "Sold"
+  },
+  {
+    "type": "PU",
+    "typeStatus": 1,
+    "comment": "Great Guy",
+    "Location": "NYC.png",
+    "Score": "560",
+    "Customer": {
+      "name": "Joshua",
+      "city": "NYC",
+      "email": "joshua@gmail.com",
+      "number": "888-567-8898",
+      "ID": "T3672",
+      "time": "10:42 am",
+      "Source": "TV",
+      "Photo": "photo.jpg"
+    },
+    "Vehicle": {
+      "name": "2011_HD_Street_Glide_CVO",
+      "type": "N",
+      "Stock": "7232B"
+    },
+    "variableSeller": {
+      "Seller1": "Stein",
+      "Seller2": "Bob"
+    },
+    "Dealer": {
+      "dealer3": "Bill",
+      "dealer4": "Steven"
+    },
+    "FinanceManager": "Abc",
+    "DeskMgr": "Steiner",
+    "roadToSale": {
+      "greet": true,
+      "probe": true,
+      "sitOn": true,
+      "EMI": false,
+      "fds": null
+    },
+    "LMC": "",
+    "LME": "",
+    "LMCB": "",
+    "LMEB": "",
+    "GROSS": [
+      "56000",
+      "70000",
+      "45000"
+    ],
+    "Results": "Sold"
+  },
+  {
+    "type": "S",
+    "typeStatus": 3,
+    "comment": "Great Guy",
+    "Location": "NYC.png",
+    "Score": "560",
+    "Customer": {
+      "name": "Joshua",
+      "city": "NYC",
+      "email": "joshua@gmail.com",
+      "number": "888-567-8898",
+      "ID": "T3672",
+      "time": "10:42 am",
+      "Source": "TV",
+      "Photo": "photo.jpg"
+    },
+    "Vehicle": {
+      "name": "2011_HD_Street_Glide_CVO",
+      "type": "N",
+      "Stock": "7232B"
+    },
+    "variableSeller": {
+      "Seller1": "Stein",
+      "Seller2": "Bob"
+    },
+    "Dealer": {
+      "dealer3": "Bill",
+      "dealer4": "Steven"
+    },
+    "FinanceManager": "Abc",
+    "DeskMgr": "Steiner",
+    "roadToSale": {
+      "greet": true,
+      "probe": true,
+      "sitOn": false,
+      "EMI": false,
+      "fds": null
+    },
+    "LMC": "",
+    "LME": "",
+    "LMCB": "",
+    "LMEB": "",
+    "GROSS": [
+      "56000",
+      "70000",
+      "45000"
+    ],
+    "Results": "just Looking"
+  },
+  {
+    "type": "A",
+    "typeStatus": 2,
+    "comment": "Great Guy",
+    "Location": "NYC.png",
+    "Score": "100",
+    "Customer": {
+      "name": "Joshua",
+      "city": "NYC",
+      "email": "joshua@gmail.com",
+      "number": "888-567-8898",
+      "ID": "T3672",
+      "time": "10:42 am",
+      "Source": "Website",
+      "Photo": "photo.jpg"
+    },
+    "Vehicle": {
+      "name": "2011_HD_Street_Glide_CVO",
+      "type": "N",
+      "Stock": "7232B"
+    },
+    "variableSeller": {
+      "Seller1": "Stein",
+      "Seller2": "Bob"
+    },
+    "Dealer": {
+      "dealer3": "Bill",
+      "dealer4": "Steven"
+    },
+    "FinanceManager": "Abc",
+    "DeskMgr": "Steiner",
+    "roadToSale": {
+      "greet": true,
+      "probe": true,
+      "sitOn": true,
+      "EMI": false,
+      "fds": null
+    },
+    "LMC": "",
+    "LME": "",
+    "LMCB": "",
+    "LMEB": "",
+    "GROSS": [
+      "56000",
+      "70000",
+      "45000"
+    ],
+    "Results": "Sold"
+  }
+]
