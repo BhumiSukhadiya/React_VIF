@@ -37,6 +37,8 @@ let routes = (
     <Route path="deskLogSetting" component={DeskLogSettingComponent}/>
     <Route path="dealMakerSetting" component={DealMakerSettingComponent}/>
     <Route path="inventorySetting" component={InventorySettingComponent}/>
+    <Route path="inventorySetting" component={InventorySettingComponent}/>
+
   </Route>
 
 );
