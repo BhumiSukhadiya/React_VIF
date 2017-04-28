@@ -3,16 +3,28 @@
 import React from 'react';
 //import {Link} from 'react-router';
 
-import {getRooftop} from '../actions';
+import {getRooftop,getAllParentCompanies} from '../actions';
 require('styles//Header.css');
 import {IconButton} from 'react-mdl';
 import {connect} from 'react-redux';
 
 class HeaderComponent extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state={
-      counter:0
+      counter:0,
+      allParentCompanies:null
+    }
+    props.dispatch(getAllParentCompanies()).then(()=>{
+
+    });
+  }
+  componentWillReceiveProps(){
+    //console.log(this.props);
+    if(this.props.headerData.parentCompanies!= undefined){
+    this.setState({
+      allParentCompanies:this.props.headerData.parentCompanies
+    });
     }
   }
 
@@ -25,19 +37,7 @@ class HeaderComponent extends React.Component {
     }
   };
 
-  shouldComponentUpdate(){
-    if(this.state.counter==0){
-      this.setState({
-        counter:this.state.counter+1
-      });
-      return true;
-    }
-    else{
-      return false;
-    }
-
-  }
-  componentDidUpdate(){
+ /* componentDidUpdate(){
     this.createCombopOptions('combo_parent_company', this.props.headerData.parentCompany);
     let selectedParentCompany = localStorage.getItem('parentCompanyId');
     if (selectedParentCompany != null) {
@@ -50,9 +50,7 @@ class HeaderComponent extends React.Component {
         }
       });
     }
-
-
-  }
+  }*/
 
   loadRooftop = (event) => {
     let parentCompanyId = event.target.value;
@@ -64,14 +62,16 @@ class HeaderComponent extends React.Component {
   };
   createCombopOptions = (comboId, data) => {
     let Dropdown = document.getElementById(comboId);
+
     let allOpts = Dropdown.options;
     let len = allOpts.length;
     data.map((element) => {
       if (len == 1) {
+
         let opt = document.createElement('option');
         opt.value = element._id;
         opt.text = element.name;
-        //console.log(opt);
+        opt.selected='selected';
         Dropdown.appendChild(opt);
       } else {
         for (let i = 1; i < len; i++) {
@@ -96,13 +96,27 @@ class HeaderComponent extends React.Component {
     localStorage.setItem('rooftopId', rooftopId);
   }
 
-
   render() {
+    let parentCompanyOptions=null;
+    if(this.state.allParentCompanies !== null){
+      /*let selectedValue=false;
+      if(this.state.allParentCompanies.length == 1){
+        selectedValue=true;
+      }*/
+      parentCompanyOptions=this.state.allParentCompanies.map((parentCompany,index)=>{
+
+        return (<option key={'parentCompany_'+index}  value={parentCompany._id}>{parentCompany.name}</option>)
+      });
+
+    }
+
+    /**/
     return (
       <div className="top">
         <div className="header-content">
           <select id="combo_parent_company" className="dropdown-style" defaultValue="" onChange={this.loadRooftop}>
             <option disabled hidden value="">Select Parent Company</option>
+           {parentCompanyOptions}
             {/*  {
              this.state.parentCompany!= undefined && this.state.parentCompany.map((company,i)=>{
              <option value={company._id} key={'company_'+i}>{company.name}</option>
@@ -126,9 +140,7 @@ class HeaderComponent extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {
-    headerData: state.headerData
-  }
+  return { headerData: state.headerData};
 }
 
 export default connect(mapStateToProps)(HeaderComponent);

@@ -29,6 +29,7 @@ class AppComponent extends React.Component {
   }
   componentWillMount(){
     /*let auth_token=getToken('auth_token')*/
+
     let auth_token=cookie.load('token');
     if(auth_token!=undefined){
       //console.log(auth_token);

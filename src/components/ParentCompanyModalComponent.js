@@ -3,6 +3,7 @@
 import React from 'react';
 import {Dialog, DialogTitle, DialogContent, Chip, Checkbox} from 'react-mdl';
 import {connect} from 'react-redux'
+import {isEmpty,updateParentCompany,addParentCompany} from '../services/parentCompanyServices';
 
 require('styles//ParentCompanyModal.css');
 
@@ -11,17 +12,29 @@ class ParentCompanyModalComponent extends React.Component {
     super(props);
     this.state = {
       checked: true,
-      disableCompanyId: (this.props.selectedParentCompany !== '')
+      disableCompanyId: (!isEmpty(this.props.selectedParentCompany))
+
     };
   }
 
-  componentWillMount(){
-    let companyId = '', companyName = '', addressLine1 = '', addressLine2 = '', City = '', State = '', zipCode = '', ownerName = '', ownerPhone = '', contactPersonName = '', contactPersonPhone = '', Status = true;
-    if (this.props.selectedParentCompany !== '') {
+  componentWillMount() {
+    this.loadModalView();
+  }
 
+  /* componentWillReceiveProps(){
+   this.loadModalView();
+   }*/
+  loadModalView = () => {
+
+    let companyId = '', companyName = '', addressLine1 = '', addressLine2 = '', City = '', State = '', zipCode = '', ownerName = '', ownerPhone = '', contactPersonName = '', contactPersonPhone = '', Status = true;
+    let modalType = 'insert';
+    if (!isEmpty(this.props.selectedParentCompany)) {
+      modalType = 'update';
       companyId = this.props.selectedParentCompany.companyId;
       companyName = this.props.selectedParentCompany.name;
-      addressLine1 = this.props.selectedParentCompany.address.addressLine1;
+      if (this.props.selectedParentCompany.address.addressLine1 !== undefined) {
+        addressLine1 = this.props.selectedParentCompany.address.addressLine1;
+      }
       if (this.props.selectedParentCompany.address.addressLine2 !== undefined) {
         addressLine2 = this.props.selectedParentCompany.address.addressLine2;
       }
@@ -46,9 +59,9 @@ class ParentCompanyModalComponent extends React.Component {
       if (this.props.selectedParentCompany.contactPerson !== undefined) {
         contactPersonPhone = this.props.selectedParentCompany.contactPerson.phone;
       }
-      Status = false/*this.props.selectedParentCompany.active*/;
+      Status = this.props.selectedParentCompany.active;
     }
-    this.setState({
+    this.setState(() => ({
       companyId,
       companyName,
       addressLine1,
@@ -60,9 +73,31 @@ class ParentCompanyModalComponent extends React.Component {
       ownerPhone,
       contactPersonName,
       contactPersonPhone,
-      checked:Status
-    })
+      checked: Status,
+      modalType
+    }));
   }
+  onSubmitParentCompanyData = (e) => {
+    e.preventDefault();
+    let formObj = {};
+    //console.log(this.refs)
+    let len = Object.keys(this.refs).length;
+    for (let key in this.refs) {
+      if (key == 'Status') {
+        formObj[key] = this.refs[key].props.defaultChecked
+      } else {
+        formObj[key] = this.refs[key].value
+      }
+    }
+    console.log(formObj);
+    if (this.state.modalType == 'insert') {
+      addParentCompany(formObj)
+    } else {
+      updateParentCompany(formObj)
+    }
+    //console.log(this.state.modalType);
+  }
+
 
   changeStatus = (e) => {
     if (e.target.checked == true) {
@@ -78,51 +113,65 @@ class ParentCompanyModalComponent extends React.Component {
 
   render() {
 
-    let stateOptions=this.props.stateList.map((stateData,index)=>{
-      return (<option key={'state_'+index} value={stateData.abbreviation}>{stateData.state}</option>)
+    let stateOptions = this.props.stateList.map((stateData, index) => {
+      return (<option key={'state_' + index} value={stateData.abbreviation}>{stateData.state}</option>)
 
     });
     return (
       <Dialog open={this.props.openDialog} style={{width: 700}}>
         <DialogTitle component="div"
                      style={{backgroundColor: '#f8f9fa', fontSize: 25, padding: 10, borderBottom: '1px solid #d1d4d7'}}>
-          <div style={{display: 'block', verticalAlign: 'middle'}}><span className="glyphicon glyphicon-list"></span>
+          <div style={{display: 'block', verticalAlign: 'middle'}}>
+            <span className="glyphicon glyphicon-list">
+            </span>
             &nbsp;Parent Company
             <span className="glyphicon glyphicon-remove"
                   style={{fontSize: 25, float: 'right', backgroundColor: 'black', color: 'white'}}
-                  onClick={this.props.onClose}></span></div>
+                  onClick={this.props.onClose}>
+            </span>
+          </div>
         </DialogTitle>
         <DialogContent>
-          <form onSubmit={null} name="myform" noValidate>
+
+          <form
+            onSubmit={this.onSubmitParentCompanyData} name="parentCompanyForm">
             <div>
               <table className="parentCompanyStyle">
 
                 <tbody>
                 <tr>
                   <td>Company ID</td>
-                  <td><input className="input-full-width" type="text" defaultValue={this.state.companyId}
+                  <td><input ref="companyId" className="input-full-width" type="text"
+                             defaultValue={this.state.companyId}
                              disabled={this.state.disableCompanyId} required/></td>
                 </tr>
                 <tr>
                   <td>Company Name</td>
-                  <td><input className="input-full-width" type="text" defaultValue={this.state.companyName} required/></td>
+                  <td><input ref="companyName" className="input-full-width" type="text"
+                             defaultValue={this.state.companyName} required/>
+                  </td>
                 </tr>
                 <tr>
                   <td>Address</td>
-                  <td><input className="input-full-width" type="text" defaultValue={this.state.addressLine1} placeholder=" Address Line 1" required/></td>
+                  <td><input ref="addressline1" className="input-full-width" type="text"
+                             defaultValue={this.state.addressLine1}
+                             placeholder=" Address Line 1" required/></td>
                 </tr>
                 <tr>
                   <td></td>
-                  <td><input className="input-full-width" type="text" defaultValue={this.state.addressLine2} placeholder=" Address Line 2"/></td>
+                  <td><input ref="addressline2" className="input-full-width" type="text"
+                             defaultValue={this.state.addressLine2}
+                             placeholder=" Address Line 2"/></td>
                 </tr>
                 <tr>
                   <td></td>
                   <td>
                     <div style={{display: 'block'}}>
-                      <div style={{float: 'left'}}><input className="input-full-width" type="text" required
+                      <div style={{float: 'left'}}><input ref="City" className="input-full-width" type="text" required
                                                           defaultValue={this.state.City} placeholder=" City"/>
                       </div>
-                      <div style={{float: 'right'}}><select defaultValue={this.state.State} required className="input-full-width" style={{width: 164}}>
+                      <div style={{float: 'right'}}><select ref="State" defaultValue={this.state.State} required
+                                                            className="input-full-width" style={{width: 164}}>
                         <option>Select State</option>
                         {stateOptions}
 
@@ -135,9 +184,10 @@ class ParentCompanyModalComponent extends React.Component {
                   <td></td>
                   <td>
                     <div style={{display: 'block'}}>
-                      <div style={{float: 'left'}}><input required defaultValue={this.state.zipCode} className="input-full-width" type="text"
-                                                          placeholder=" Zip Code" pattern="/^([0-9a-zA-Z]{5}$)/"
-                                                          title="Zip length should be 5!!!"/>
+                      <div style={{float: 'left'}}><input ref="zipCode" defaultValue={this.state.zipCode}
+                                                          className="input-full-width"
+                                                          type="text"
+                                                          placeholder=" Zip Code" required/>
                       </div>
                       <div style={{float: 'right'}}>
                       </div>
@@ -148,12 +198,13 @@ class ParentCompanyModalComponent extends React.Component {
                   <td>Owner</td>
                   <td>
                     <div style={{display: 'block'}}>
-                      <div style={{float: 'left'}}><input className="input-full-width" type="text" defaultValue={this.state.ownerName}
+                      <div style={{float: 'left'}}><input ref="ownerName" className="input-full-width" type="text"
+                                                          defaultValue={this.state.ownerName}
                                                           placeholder=" Owner Name" required/>
                       </div>
-                      <div style={{float: 'right'}}><input className="input-full-width" type="text" defaultValue={this.state.ownerPhone}
-                                                           title="Phone should be 10 digit number!!!" required
-                                                           pattern="/^([0-9]{10}$)/" placeholder=" Owner Phone"/>
+                      <div style={{float: 'right'}}><input ref="ownerPhone" className="input-full-width" type="text"
+                                                           defaultValue={this.state.ownerPhone}
+                                                           required placeholder=" Owner Phone"/>
                       </div>
                     </div>
                   </td>
@@ -162,12 +213,14 @@ class ParentCompanyModalComponent extends React.Component {
                   <td>Contact person</td>
                   <td>
                     <div style={{display: 'block'}}>
-                      <div style={{float: 'left'}}><input className="input-full-width" type="text" defaultValue={this.state.contactPersonName}
+                      <div style={{float: 'left'}}><input ref="contactPersonName" className="input-full-width"
+                                                          type="text"
+                                                          defaultValue={this.state.contactPersonName}
                                                           placeholder=" Contact person Name"/>
                       </div>
-                      <div style={{float: 'right'}}><input className="input-full-width" type="text" defaultValue={this.state.contactPersonPhone}
-                                                           title="Phone should be 10 digit number!!!"
-                                                           pattern="/^([0-9]{10}$)/"
+                      <div style={{float: 'right'}}><input ref="contactPersonPhone" className="input-full-width"
+                                                           type="text"
+                                                           defaultValue={this.state.contactPersonPhone}
                                                            placeholder=" Contact person Phone"/>
                       </div>
                     </div>
@@ -177,7 +230,7 @@ class ParentCompanyModalComponent extends React.Component {
                   <td>Status</td>
                   <td>
                     <div style={{display: 'inline-flex'}}>
-                      <Checkbox defaultChecked={this.state.checked} onChange={this.changeStatus}/>
+                      <Checkbox ref="Status" defaultChecked={this.state.checked} onChange={this.changeStatus}/>
                       {this.state.checked ? <Chip style={{backgroundColor: '#5cb85c', color: 'white'}}>Active</Chip> :
                         <Chip style={{backgroundColor: '#f86c6b', color: 'white'}}>Inactive</Chip>}
                     </div>
@@ -188,7 +241,8 @@ class ParentCompanyModalComponent extends React.Component {
               </table>
             </div>
             <hr/>
-            <input type="submit" name="submit" value="&#10004; Save" className="submit-btn"/>
+
+            <button className="submit-btn" type="submit">&#10004; Save</button>
             &nbsp;&nbsp;
             <button onClick={this.props.onClose} style={{padding: 3}}>&#10006; Close</button>
           </form>
@@ -205,9 +259,9 @@ ParentCompanyModalComponent.displayName = 'ParentCompanyModalComponent';
 // ParentCompanyModalComponent.propTypes = {};
 // ParentCompanyModalComponent.defaultProps = {};
 
-function mapStateToProps(store){
-  return{
-    stateList:store.parentCompanyData.states
+function mapStateToProps(store) {
+  return {
+    stateList: store.parentCompanyData.states
   }
 }
 

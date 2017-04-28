@@ -183,7 +183,7 @@ const ActionCell = ({rowIndex, data, ...props}) => {
   if (Index !== undefined) {
     return (
       <Cell {...props}>
-        <a href="" style={{color:'#d06202'}}>Manage Rooftops</a>
+        <div  style={{color:'#d06202'}}>Manage Rooftops</div>
       </Cell>
     )
   }
@@ -254,7 +254,7 @@ class ParentCompaniesSettingComponent extends React.Component {
     super(props);
     this.state={
       showParentCompanyModal:false,
-      selectedParentCompanyId:null
+      selectedParentCompany:null
     };
     this.props.dispatch(getAllParentCompanies()).then(() => {
       this.props.dispatch(getStates()).then(() => {
@@ -349,24 +349,37 @@ class ParentCompaniesSettingComponent extends React.Component {
     });
   };
 
-  openParentCompanyModal=(parent_company_id)=>{
-    this.setState({
-      showParentCompanyModal:true,
-      selectedParentCompanyId:parent_company_id
-    });
+  openParentCompanyModal=(parent_company)=>{
+    if(parent_company == ''){
+
+      this.setState(()=>({
+        showParentCompanyModal:true,
+        selectedParentCompany:{}
+      }));
+    }else{
+      this.setState(()=>({
+        showParentCompanyModal:true,
+        selectedParentCompany:parent_company
+      }));
+    }
+
+
   };
 
   closeParentCompanyModal=()=>{
-    this.setState({
-      showParentCompanyModal:false
-    });
+    this.setState(()=>({
+      showParentCompanyModal:false,
+      selectedParentCompany:null
+    }));
+
   };
   render() {
+
     return (
 
       <div className="log-table">
-        {this.state.selectedParentCompanyId!== null && <ParentCompanyModal openDialog={this.state.showParentCompanyModal} onClose={this.closeParentCompanyModal} selectedParentCompany={this.state.selectedParentCompanyId}/>}
 
+        {this.state.selectedParentCompany!== null && <ParentCompanyModal openDialog={this.state.showParentCompanyModal} onClose={this.closeParentCompanyModal} selectedParentCompany={this.state.selectedParentCompany}/>}
         <button onClick={()=>this.openParentCompanyModal('')}
           style={{color: 'white', backgroundColor: '#e96e02', borderColor: '#df6902', float: 'right', padding: 10}}>+
           Add Parent Company
