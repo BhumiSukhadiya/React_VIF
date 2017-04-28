@@ -13,6 +13,9 @@ class ParentCompanyModalComponent extends React.Component {
       checked: true,
       disableCompanyId: (this.props.selectedParentCompany !== '')
     };
+  }
+
+  componentWillMount(){
     let companyId = '', companyName = '', addressLine1 = '', addressLine2 = '', City = '', State = '', zipCode = '', ownerName = '', ownerPhone = '', contactPersonName = '', contactPersonPhone = '', Status = true;
     if (this.props.selectedParentCompany !== '') {
 
@@ -43,7 +46,7 @@ class ParentCompanyModalComponent extends React.Component {
       if (this.props.selectedParentCompany.contactPerson !== undefined) {
         contactPersonPhone = this.props.selectedParentCompany.contactPerson.phone;
       }
-      Status = this.props.selectedParentCompany.active;
+      Status = false/*this.props.selectedParentCompany.active*/;
     }
     this.setState({
       companyId,
@@ -57,18 +60,16 @@ class ParentCompanyModalComponent extends React.Component {
       ownerPhone,
       contactPersonName,
       contactPersonPhone,
-      Status
+      checked:Status
     })
   }
 
   changeStatus = (e) => {
     if (e.target.checked == true) {
-      console.log('true');
       this.setState({
         checked: true
       })
     } else {
-      console.log('false');
       this.setState({
         checked: false
       })
@@ -76,6 +77,11 @@ class ParentCompanyModalComponent extends React.Component {
   }
 
   render() {
+
+    let stateOptions=this.props.stateList.map((stateData,index)=>{
+      return (<option key={'state_'+index} value={stateData.abbreviation}>{stateData.state}</option>)
+
+    });
     return (
       <Dialog open={this.props.openDialog} style={{width: 700}}>
         <DialogTitle component="div"
@@ -99,7 +105,7 @@ class ParentCompanyModalComponent extends React.Component {
                 </tr>
                 <tr>
                   <td>Company Name</td>
-                  <td><input className="input-full-width" type="text" defaultValue={this.state.name} required/></td>
+                  <td><input className="input-full-width" type="text" defaultValue={this.state.companyName} required/></td>
                 </tr>
                 <tr>
                   <td>Address</td>
@@ -116,8 +122,10 @@ class ParentCompanyModalComponent extends React.Component {
                       <div style={{float: 'left'}}><input className="input-full-width" type="text" required
                                                           defaultValue={this.state.City} placeholder=" City"/>
                       </div>
-                      <div style={{float: 'right'}}><select required className="input-full-width" style={{width: 164}}>
+                      <div style={{float: 'right'}}><select defaultValue={this.state.State} required className="input-full-width" style={{width: 164}}>
                         <option>Select State</option>
+                        {stateOptions}
+
                       </select>
                       </div>
                     </div>
@@ -127,7 +135,7 @@ class ParentCompanyModalComponent extends React.Component {
                   <td></td>
                   <td>
                     <div style={{display: 'block'}}>
-                      <div style={{float: 'left'}}><input required className="input-full-width" type="text"
+                      <div style={{float: 'left'}}><input required defaultValue={this.state.zipCode} className="input-full-width" type="text"
                                                           placeholder=" Zip Code" pattern="/^([0-9a-zA-Z]{5}$)/"
                                                           title="Zip length should be 5!!!"/>
                       </div>
@@ -140,10 +148,10 @@ class ParentCompanyModalComponent extends React.Component {
                   <td>Owner</td>
                   <td>
                     <div style={{display: 'block'}}>
-                      <div style={{float: 'left'}}><input className="input-full-width" type="text"
+                      <div style={{float: 'left'}}><input className="input-full-width" type="text" defaultValue={this.state.ownerName}
                                                           placeholder=" Owner Name" required/>
                       </div>
-                      <div style={{float: 'right'}}><input className="input-full-width" type="text"
+                      <div style={{float: 'right'}}><input className="input-full-width" type="text" defaultValue={this.state.ownerPhone}
                                                            title="Phone should be 10 digit number!!!" required
                                                            pattern="/^([0-9]{10}$)/" placeholder=" Owner Phone"/>
                       </div>
@@ -154,10 +162,10 @@ class ParentCompanyModalComponent extends React.Component {
                   <td>Contact person</td>
                   <td>
                     <div style={{display: 'block'}}>
-                      <div style={{float: 'left'}}><input className="input-full-width" type="text"
+                      <div style={{float: 'left'}}><input className="input-full-width" type="text" defaultValue={this.state.contactPersonName}
                                                           placeholder=" Contact person Name"/>
                       </div>
-                      <div style={{float: 'right'}}><input className="input-full-width" type="text"
+                      <div style={{float: 'right'}}><input className="input-full-width" type="text" defaultValue={this.state.contactPersonPhone}
                                                            title="Phone should be 10 digit number!!!"
                                                            pattern="/^([0-9]{10}$)/"
                                                            placeholder=" Contact person Phone"/>
@@ -197,4 +205,10 @@ ParentCompanyModalComponent.displayName = 'ParentCompanyModalComponent';
 // ParentCompanyModalComponent.propTypes = {};
 // ParentCompanyModalComponent.defaultProps = {};
 
-export default connect()(ParentCompanyModalComponent);
+function mapStateToProps(store){
+  return{
+    stateList:store.parentCompanyData.states
+  }
+}
+
+export default connect(mapStateToProps)(ParentCompanyModalComponent);

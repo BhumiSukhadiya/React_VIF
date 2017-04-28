@@ -3,12 +3,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import ParentCompanyModal from './ParentCompanyModalComponent';
-import {Dialog,DialogTitle,DialogActions,DialogContent,Button} from 'react-mdl';
-
 require('styles//ParentCompaniesSetting.css');
 import {getAllParentCompanies, getStates} from '../actions'
 import LogData from '../stores/LogData'
-import {Icon, Chip} from 'react-mdl';
+import { Chip} from 'react-mdl';
 
 require('styles//DeskLog.css');
 import {Table, Column, Cell} from 'fixed-data-table';
@@ -352,7 +350,6 @@ class ParentCompaniesSettingComponent extends React.Component {
   };
 
   openParentCompanyModal=(parent_company_id)=>{
-    console.log(parent_company_id)
     this.setState({
       showParentCompanyModal:true,
       selectedParentCompanyId:parent_company_id

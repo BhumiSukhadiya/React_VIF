@@ -39,7 +39,7 @@ export function setParentCompanies(parentCompanies){
   }
 }
 
-export function getAllParentCompanies(id){
+export function getAllParentCompanies(){
   //console.log(cookie.load('token'));
   return (dispatch) => {
     return axios.get(config.api_url+'api/parentCompanies')
