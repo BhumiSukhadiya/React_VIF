@@ -3,6 +3,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import ParentCompanyModal from './ParentCompanyModalComponent';
+import {Link} from 'react-router';
 require('styles//ParentCompaniesSetting.css');
 import {getAllParentCompanies, getStates} from '../actions'
 import LogData from '../stores/LogData'
@@ -183,7 +184,7 @@ const ActionCell = ({rowIndex, data, ...props}) => {
   if (Index !== undefined) {
     return (
       <Cell {...props}>
-        <div  style={{color:'#d06202'}}>Manage Rooftops</div>
+        <Link  to={'/manageRooftop/'+data['data'][Index]._id} style={{color:'#d06202'}}>Manage Rooftops</Link>
       </Cell>
     )
   }

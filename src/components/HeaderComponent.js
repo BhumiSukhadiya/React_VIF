@@ -16,7 +16,6 @@ class HeaderComponent extends React.Component {
       allParentCompanies:null
     }
     props.dispatch(getAllParentCompanies()).then(()=>{
-
     });
   }
   componentWillReceiveProps(){
@@ -35,17 +34,26 @@ class HeaderComponent extends React.Component {
     } else {
       x.style.display = 'none';
     }
-  };
+  };10
   componentDidMount(){
     let selectedParentCompany = localStorage.getItem('parentCompanyId');
     let selectedRooftop = localStorage.getItem('rooftopId');
     if(selectedParentCompany!== null){
       document.getElementById('combo_parent_company').value=selectedParentCompany
+        let event={
+            target:{
+                value:selectedParentCompany
+            }
+        }
+        this.loadRooftop(event);
+        if(selectedRooftop!== null){
+            document.getElementById('combo_rooftops').value=selectedRooftop
+        }
     }
-    this.loadRooftop(null,selectedParentCompany);
-    if(selectedRooftop!== null){
-      document.getElementById('combo_rooftops').value=selectedRooftop
-    }
+
+
+
+
   }
 
  /* componentDidUpdate(){
@@ -63,14 +71,9 @@ class HeaderComponent extends React.Component {
     }
   }*/
 
-  loadRooftop = (event,localId=null) => {
+  loadRooftop = (event) => {
     let parentCompanyId;
-    if(localId == null){
       parentCompanyId = event.target.value;
-    }else{
-      parentCompanyId =localId;
-    }
-
     localStorage.setItem('parentCompanyId', parentCompanyId);
     this.props.dispatch(getRooftop(parentCompanyId)).then(() => {
       this.createCombopOptions('combo_rooftops', this.props.headerData.rooftop);
