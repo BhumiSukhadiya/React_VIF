@@ -1,0 +1,44 @@
+/* Base Application Styles */
+.main {
+  position: absolute;
+  left:15%; top:10%; right:0; bottom:0;
+  background: rgb(228, 229, 230);
+}
+
+.setting-menu{
+  position: absolute;
+  z-index: 1000;
+  display: none;
+  float: right;
+  padding: 0 0;
+  font-size: 0.875rem;
+  color: #3d3f42;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #e4e5e6;
+  right:0
+
+
+}
+
+.setting-menu-header{
+  padding: 8px 20px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e4e5e6;
+  text-align: center !important;
+}
+
+.setting-menu-items{
+  position: relative;
+  padding: 10px 10px;
+  border-bottom: 1px solid #e4e5e6;
+  display: block;
+  font-weight: normal;
+  color: #2a2c36;
+  text-align: inherit;
+  background: none;
+}
+
+

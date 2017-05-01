@@ -1,0 +1,22 @@
+.parentcompanymodal-component {
+  border: 1px dashed #f00;
+}
+
+.parentCompanyStyle {
+  width: 100%;
+}
+.parentCompanyStyle td {
+  padding:10px 20px;
+}
+
+.input-full-width {
+  width: 100%;
+  height:35px;
+}
+
+.submit-btn{
+  color: white;
+  background-color: #e96e02;
+  border-color: #df6902;
+  padding: 2px
+}
