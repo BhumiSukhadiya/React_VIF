@@ -36,6 +36,17 @@ class HeaderComponent extends React.Component {
       x.style.display = 'none';
     }
   };
+  componentDidMount(){
+    let selectedParentCompany = localStorage.getItem('parentCompanyId');
+    let selectedRooftop = localStorage.getItem('rooftopId');
+    if(selectedParentCompany!== null){
+      document.getElementById('combo_parent_company').value=selectedParentCompany
+    }
+    this.loadRooftop(null,selectedParentCompany);
+    if(selectedRooftop!== null){
+      document.getElementById('combo_rooftops').value=selectedRooftop
+    }
+  }
 
  /* componentDidUpdate(){
     this.createCombopOptions('combo_parent_company', this.props.headerData.parentCompany);
@@ -52,27 +63,32 @@ class HeaderComponent extends React.Component {
     }
   }*/
 
-  loadRooftop = (event) => {
-    let parentCompanyId = event.target.value;
+  loadRooftop = (event,localId=null) => {
+    let parentCompanyId;
+    if(localId == null){
+      parentCompanyId = event.target.value;
+    }else{
+      parentCompanyId =localId;
+    }
+
     localStorage.setItem('parentCompanyId', parentCompanyId);
-    this.props.dispatch(getRooftop(event.target.value)).then(() => {
+    this.props.dispatch(getRooftop(parentCompanyId)).then(() => {
       this.createCombopOptions('combo_rooftops', this.props.headerData.rooftop);
     });
 
   };
   createCombopOptions = (comboId, data) => {
     let Dropdown = document.getElementById(comboId);
-
     let allOpts = Dropdown.options;
     let len = allOpts.length;
     data.map((element) => {
       if (len == 1) {
-
         let opt = document.createElement('option');
         opt.value = element._id;
         opt.text = element.name;
         opt.selected='selected';
         Dropdown.appendChild(opt);
+        localStorage.setItem('rooftopId', element._id);
       } else {
         for (let i = 1; i < len; i++) {
           let optval = Dropdown.options[i].value;
@@ -85,7 +101,6 @@ class HeaderComponent extends React.Component {
             //console.log(opt);
             Dropdown.appendChild(opt);
           }
-
         }
       }
     });

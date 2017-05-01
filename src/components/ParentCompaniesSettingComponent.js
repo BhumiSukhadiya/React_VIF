@@ -351,7 +351,6 @@ class ParentCompaniesSettingComponent extends React.Component {
 
   openParentCompanyModal=(parent_company)=>{
     if(parent_company == ''){
-
       this.setState(()=>({
         showParentCompanyModal:true,
         selectedParentCompany:{}
@@ -367,18 +366,19 @@ class ParentCompaniesSettingComponent extends React.Component {
   };
 
   closeParentCompanyModal=()=>{
-    this.setState(()=>({
-      showParentCompanyModal:false,
-      selectedParentCompany:null
-    }));
-
+    this.props.dispatch(getAllParentCompanies()).then(() => {
+      this.setState({
+        showParentCompanyModal:false,
+        selectedParentCompany:null,
+        sortedDataList: new LogData(this.props.headerData.parentCompanies)
+      })
+    })
   };
   render() {
 
     return (
 
       <div className="log-table">
-
         {this.state.selectedParentCompany!== null && <ParentCompanyModal openDialog={this.state.showParentCompanyModal} onClose={this.closeParentCompanyModal} selectedParentCompany={this.state.selectedParentCompany}/>}
         <button onClick={()=>this.openParentCompanyModal('')}
           style={{color: 'white', backgroundColor: '#e96e02', borderColor: '#df6902', float: 'right', padding: 10}}>+
@@ -388,7 +388,7 @@ class ParentCompaniesSettingComponent extends React.Component {
         <input type="text" className="search-field" placeholder="Search" onChange={this._onFilterChange}/><br/>
         <center>
           {(this.state.sortedDataList !==undefined && this.state.colSortDirs!==undefined) ? this.state.sortedDataList.getSize() > 0 ? (<Table
-              maxHeight={650}
+              maxHeight={550}
               width={1200}
               rowsCount={this.state.sortedDataList.getSize()}
               rowHeight={70}
@@ -404,7 +404,7 @@ class ParentCompaniesSettingComponent extends React.Component {
                   </SortHeaderCell>
                 }
                 cell={<CompanyCell data={this.state.sortedDataList} onClickFun={this.openParentCompanyModal}/>}
-                width={200}
+                width={150}
               />
 
               <Column
@@ -490,7 +490,7 @@ class ParentCompaniesSettingComponent extends React.Component {
                   </SortHeaderCell>
                 }
                 cell={<ContactPersonCell data={this.state.sortedDataList}/>}
-                width={100}
+                width={120}
               />
               <Column
                 columnKey="contactPerson.phone"
@@ -502,7 +502,7 @@ class ParentCompaniesSettingComponent extends React.Component {
                   </SortHeaderCell>
                 }
                 cell={<ContactNumberCell data={this.state.sortedDataList}/>}
-                width={100}
+                width={130}
               />
               <Column
                 columnKey="Dealer"

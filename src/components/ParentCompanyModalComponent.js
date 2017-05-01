@@ -79,23 +79,51 @@ class ParentCompanyModalComponent extends React.Component {
   }
   onSubmitParentCompanyData = (e) => {
     e.preventDefault();
-    let formObj = {};
-    //console.log(this.refs)
-    let len = Object.keys(this.refs).length;
+    let formObj = this.props.selectedParentCompany;
+    if(isEmpty(formObj)){
+      formObj.address={};
+      formObj.owner={};
+    }
+    formObj.name=this.refs.companyName.value;
+    formObj.address.addressLine1=this.refs.addressline1.value;
+    if(this.refs.addressline2.value!== ''){
+      formObj.address.addressLine2=this.refs.addressline2.value;
+    }
+    formObj.address.city=this.refs.City.value;
+    formObj.address.state=this.refs.State.value;
+    formObj.address.zip=this.refs.zipCode.value;
+    if((this.refs.contactPersonName.value!==''||this.refs.contactPersonPhone.value!=='') && !formObj.hasOwnProperty('contactPerson')){
+      formObj.contactPerson={}
+    }
+    if(this.refs.contactPersonName.value!==''){
+      formObj.contactPerson.name=this.refs.contactPersonName.value;
+    }
+    if(this.refs.contactPersonPhone.value!==''){
+      formObj.contactPerson.phone=this.refs.contactPersonPhone.value;
+    }
+    formObj.owner.name=this.refs.ownerName.value;
+    formObj.owner.phone=this.refs.ownerPhone.value;
+    formObj.active=this.refs.Status.props.defaultChecked;
+
+    /*let len = Object.keys(this.refs).length;
     for (let key in this.refs) {
       if (key == 'Status') {
         formObj[key] = this.refs[key].props.defaultChecked
       } else {
         formObj[key] = this.refs[key].value
       }
-    }
-    console.log(formObj);
+    }*/
     if (this.state.modalType == 'insert') {
-      addParentCompany(formObj)
+      addParentCompany(formObj).then(()=>{
+        this.props.onClose();
+
+
+      })
     } else {
-      updateParentCompany(formObj)
+      updateParentCompany(formObj._id,formObj).then(()=>{
+        this.props.onClose();
+      })
     }
-    //console.log(this.state.modalType);
   }
 
 
@@ -139,12 +167,13 @@ class ParentCompanyModalComponent extends React.Component {
               <table className="parentCompanyStyle">
 
                 <tbody>
-                <tr>
+                {this.state.modalType=='update' && <tr>
                   <td>Company ID</td>
                   <td><input ref="companyId" className="input-full-width" type="text"
                              defaultValue={this.state.companyId}
                              disabled={this.state.disableCompanyId} required/></td>
-                </tr>
+                </tr>}
+
                 <tr>
                   <td>Company Name</td>
                   <td><input ref="companyName" className="input-full-width" type="text"
