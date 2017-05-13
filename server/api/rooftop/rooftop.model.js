@@ -54,7 +54,7 @@ RooftopSchema
       return global.applicationSettings && global.applicationSettings.cdnServer && (`${global.applicationSettings.cdnServer.serverUrl}/dealerUploads/${this.parentCompany.companyId}/${this.dealerId}/${this.logoImage}?ts=${Date.now()}`).replace(/\/\/+/g, '/');
     }
 
-    return global.applicationSettings && global.applicationSettings.cdnServer && `${global.applicationSettings.cdnServer.serverUrl}/images/defaultLogo.png`;
+    return global.applicationSettings && global.applicationSettings.cdnServer && `${global.applicationSettings.cdnServer.serverUrl}/images/defaultUser.png`;
   });
 
 // Logo thumbnail image url

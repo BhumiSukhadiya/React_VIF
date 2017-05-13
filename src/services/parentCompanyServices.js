@@ -16,6 +16,10 @@ export function getParentCompanies() {
   return axios.get(config.api_url+'api/parentCompanies/').then();
 }
 
+export function getParentCompanyById(id) {
+    return axios.get(config.api_url+'api/parentCompanies/'+id).then();
+}
+
 export function isEmpty( o ) {
   for ( var p in o ) {
     if ( o.hasOwnProperty( p ) ) { return false; }

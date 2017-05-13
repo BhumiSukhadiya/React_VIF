@@ -1,3 +1,61 @@
-.rooftopmodal-component {
-  border: 1px dashed #f00;
+.parentcompanymodal-component {
+    border: 1px dashed #f00;
+}
+
+.rooftopStyle {
+    width: 100%;
+}
+
+.rooftopStyle td {
+    padding: 10px 20px;
+}
+
+.input-full-width {
+    width: 100%;
+    height: 35px;
+}
+
+.submit-btn {
+    color: white;
+    background-color: #e96e02;
+    border-color: #df6902;
+    padding: 2px
+}
+
+.myLabel {
+    position: relative;
+    width: 20%;
+    margin-top: 10px;
+}
+
+.myLabel input {
+    position: absolute;
+    z-index: 2;
+    opacity: 0;
+}
+
+/* Example custom styling */
+.myLabel {
+    color: white;
+    background-color: #e96e02;
+    border-color: #df6902;
+    padding: 10px
+}
+
+.cbox {
+    position: absolute;
+    width: 19px;
+    height: 19px;
+}
+
+.cbox-div{
+    margin: 0 20px 0 0;
+    position: relative;
+    padding: 10px 0;
+    display: inline-block;
+}
+
+.cbox-span{
+    padding-left: 40px;
+    vertical-align: middle;
 }

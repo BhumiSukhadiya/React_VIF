@@ -41,10 +41,8 @@ class AppComponent extends React.Component {
         browserHistory.push('dashboard');
         }
       });
-
-
     }else{
-      browserHistory.push('login');
+      browserHistory.replace('login');
     }
   }
   handleLogout=()=>{

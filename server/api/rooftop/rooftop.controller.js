@@ -44,8 +44,12 @@ export function show(req, res) {
 
 // Creates a new Rooftop in the DB
 export function create(req, res) {
-  if (!req.body.address || !req.body.address.state) {
-    return res.status(406).send({message: 'Address state is required.'});
+  console.log(req.body);
+    if (!req.body.address ) {
+        return res.status(406).json({message: 'Address is required.',obj:req.body});
+    }
+  if (!req.body.address.state) {
+    return res.status(406).json({message: 'Address state is required.',obj:req.body});
   }
 
   let statePrefix = '';
@@ -54,7 +58,6 @@ export function create(req, res) {
       if (!prefix) {
         return Promise.reject({code: 406, message: `State prefix not found for the state '${req.body.address.state}'`});
       }
-
       statePrefix = prefix.prefix;
       return rooftopHelper.getAllByStateCode(req.body.address.state);
     })
@@ -84,6 +87,7 @@ export function create(req, res) {
       return Rooftop.findById(rooftop._id).exec();
     })
     .then(rooftop => {
+
       if (req.files && req.files.file) {
         let filePath = `dealerUploads/${rooftop.parentCompany.companyId}/${rooftop.dealerId}/`;
         return aws.uploadImage(req.files.file, filePath, rooftop.logoImage, rooftop);
